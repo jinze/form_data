@@ -11,7 +11,7 @@ defmodule FormData do
   def put(form_data = %FormData{completed: false}, name, value) do
     form_data.body
     |> append("--#{form_data.boundary}\r\n")
-    |> append("Content-Disposition: form-data; name=\"#{name}\"\r\n\r\n")
+    |> append("Content-Disposition: form-data; name=\"#{escape_quotes name}\"\r\n\r\n")
     |> append("#{value}\r\n")
     |> (&(%FormData{form_data| body: &1})).()
   end
@@ -27,7 +27,7 @@ defmodule FormData do
   def put(form_data = %FormData{completed: false}, name, data, file_name, content_type) do
     form_data.body
     |> append("--#{form_data.boundary}\r\n")
-    |> append("Content-Disposition: form-data; name=\"#{name}\"; filename=\"#{file_name}\"\r\n")
+    |> append("Content-Disposition: form-data; name=\"#{escape_quotes name}\"; filename=\"#{escape_quotes file_name}\"\r\n")
     |> append("Content-Type: #{content_type}\r\n\r\n")
     |> append("#{data}\r\n")
     |> (&(%FormData{form_data| body: &1})).()
@@ -78,6 +78,10 @@ defmodule FormData do
     :crypto.rand_bytes(8)
     |> Base.encode16
     |> prepend("--------FormDataBoundary")
+  end
+
+  defp escape_quotes(s) do
+    String.replace(s, "\"", "\\\"")
   end
 end
 
