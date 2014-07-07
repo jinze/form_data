@@ -3,8 +3,9 @@ defmodule FormData.Mixfile do
 
   def project do
     [app: :form_data,
-     version: "0.0.1",
+     version: "0.1.0",
      elixir: "~> 0.14.2",
+     name: "FormData",
      deps: deps]
   end
 
@@ -25,6 +26,6 @@ defmodule FormData.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    []
+    [ { :mime, github: "dynamo/mime" } ]
   end
 end
