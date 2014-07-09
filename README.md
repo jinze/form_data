@@ -6,7 +6,7 @@ Build a multipart/form-data form struct in Elixir.
 I need `{ :mime, github: "dynamo/mime" }` as a dependency.
 
 
-'''elixir
+```elixir
 
 form = FormData.init()
 |> FormData.put("name", "Z. Jin")
@@ -19,4 +19,4 @@ form = FormData.init()
 IO.inspect form
 IO.inspect FormData.headers(form)
 
-'''
+```
