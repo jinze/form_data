@@ -4,7 +4,7 @@ defmodule FormData do
             body: <<>>,
             completed: false
   
-  def build() do
+  def init() do
     %FormData{boundary: gen_boundary}
   end
 
@@ -45,25 +45,25 @@ defmodule FormData do
     put(form_data, name, File.read!(file_path), Path.basename(file_path), content_type)
   end
 
-  def complete(form_data = %FormData{completed: false}) do
+  def final(form_data = %FormData{completed: false}) do
     update_in(form_data.body, &(&1 <> "--#{form_data.boundary}--\r\n"))
     |> (&(%FormData{&1| completed: true})).()
   end
 
-  def complete(_) do
+  def final(_) do
     raise "This FormData has been completed already."
   end
 
-  def heads(form_data = %FormData{completed: true}) do
+  def headers(form_data = %FormData{completed: true}) do
     %{
       "content-length" => byte_size(form_data.body),
       "content-type" => "multipart/form-data; boundary=#{form_data.boundary}"
     }
   end
 
-  def heads(form_data = %FormData{}) do
+  def headers(form_data = %FormData{}) do
     complete(form_data)
-    |> heads
+    |> headers
   end
 
   defp append(body, data) do
