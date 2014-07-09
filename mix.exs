@@ -3,9 +3,11 @@ defmodule FormData.Mixfile do
 
   def project do
     [app: :form_data,
-     version: "0.1.0",
+     version: "0.1.1",
      elixir: "~> 0.14.2",
      name: "FormData",
+     description: "Build a multipart/form-data form struct in Elixir.",
+     package: package,
      deps: deps]
   end
 
@@ -28,4 +30,14 @@ defmodule FormData.Mixfile do
   defp deps do
     [ { :mime, github: "dynamo/mime" } ]
   end
+
+  defp package do
+  [
+    contributors: ["Ze Jin"],
+    licenses:      ["MIT"],
+    links: [
+      { "GitHub", "https://github.com/jinze/form_data" }
+    ]
+  ]
+end
 end
