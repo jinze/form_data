@@ -35,9 +35,7 @@ defmodule FormData.Mixfile do
   [
     contributors: ["Ze Jin"],
     licenses:      ["MIT"],
-    links: [
-      { "GitHub", "https://github.com/jinze/form_data" }
-    ]
+    links: %{ "GitHub" => "https://github.com/jinze/form_data" }
   ]
 end
 end
